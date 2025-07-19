@@ -10,10 +10,20 @@
 // PUT	/hats/:id	Update	Updates a specific hat by its ID
 // DELETE	/hats/:id	Destroy	Deletes a specific hat by its ID
 
-const express = require('express');
+//server.js
+
+const dotenv = require("dotenv"); // require package
+dotenv.config(); // Loads the environment variables from .env file
+const express = require("express");
+const mongoose = require('mongoose');
 const app = express();
 
-// const mongoose = require('mongoose');
+mongoose.connect(process.env.MONGODB_URI);
+mongoose.connection.on("connected", () => {
+  console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+});
+
+
 
 // const hatSchema = new mongoose.Schema({
 //     name: {type: String, required: true},
@@ -27,6 +37,18 @@ const app = express();
 app.get("/", async (req, res) => {
   res.render("index.ejs");
 });
+
+// server.js
+
+mongoose.connect(process.env.MONGO_URI);
+
+mongoose.connection.on("connected", () => {
+  console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
+});
+
+// Import the Cap model
+const Cap = require("./models/cap.js");
+
 
 
 
