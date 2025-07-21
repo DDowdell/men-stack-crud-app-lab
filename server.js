@@ -14,9 +14,12 @@ mongoose.connection.on("connected", () => {
 
 const Cap = require("./models/cap.js");
 
+//Middleware===========================================================
+app.use(express.urlencoded({ extended: false }));
 
 
-//Routes below===============================================
+
+//Routes below=========================================================
 
 //GET Home route
 app.get("/", async (req, res) => {
@@ -28,6 +31,22 @@ app.get("/caps/new", (req, res) => {
   res.render("caps/new.ejs"); 
 });
 
+//POST Create route
+app.post("/caps", async (req, res) => {
+  if (req.body.isReadyToWear === "on") {
+    req.body.isReadyToWear = true;
+  } else {
+    req.body.isReadyToWear = false;
+  }
+  await Cap.create(req.body);
+  res.redirect("/caps");
+});
+
+//GET caps index
+app.get("/caps", async (req, res) => {
+  const allCaps = await Cap.find();
+  res.render("caps/index.ejs", { caps: allCaps });
+});
 
 
 //Routes above=============================================
