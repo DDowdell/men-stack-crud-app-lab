@@ -31,12 +31,12 @@ app.get("/", async (req, res) => {
   res.render("index.ejs");
 });
 
-// GET New route
+// GET Add/New route
 app.get("/caps/new", (req, res) => {
   res.render("caps/new.ejs"); 
 });
 
-//GET Caps ID
+//GET AllCaps ID route
 app.get("/caps/:capId", async (req, res) => {
   const foundCap = await Cap.findById(req.params.capId);
   res.render("caps/show.ejs", { cap: foundCap });
@@ -53,17 +53,38 @@ app.post("/caps", async (req, res) => {
   res.redirect("/caps");
 });
 
-//GET caps index
+//GET index route
 app.get("/caps", async (req, res) => {
   const allCaps = await Cap.find();
   res.render("caps/index.ejs", { caps: allCaps });
 });
 
-//DELETE button
+//DELETE button route
 app.delete("/caps/:capId", async (req, res) => {
   await Cap.findByIdAndDelete(req.params.capId);
   res.redirect("/caps");
 });
+
+//GET edit route
+app.get("/caps/:capId/edit", async (req, res) => {
+  const foundCap = await Cap.findById(req.params.capId);
+  res.render("caps/edit.ejs", {
+    cap: foundCap,
+  });
+});
+
+//PUT update route
+app.put("/caps/:capId", async (req, res) => {
+  if (req.body.isReadyToWear === "on") {
+    req.body.isReadyToWear = true;
+  } else {
+    req.body.isReadyToWear = false;
+  }
+  await Cap.findByIdAndUpdate(req.params.capId, req.body);
+  res.redirect(`/caps/${req.params.capId}`);
+});
+
+
 
 
 //Routes above=============================================
