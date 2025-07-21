@@ -6,4 +6,6 @@ const capSchema = new mongoose.Schema({
 });
 
 const Cap = mongoose.model("Cap", capSchema); // create model
-module.exports = Caps;
+
+module.exports = Cap;
+
