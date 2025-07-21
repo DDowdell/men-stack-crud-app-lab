@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <a href="/caps/">Back to Caps</a>
+    <title><%= cap.name %></title> 
+  </head>
+  <body>
+    <h1><%= cap.name %></h1> 
+      <% if (cap.isReadyToWear) { %>
+    <p>This cap is ready to wear!</p>
+  <% } else { %>
+    <p>This cap is not ready to wear!</p>
+  <% } %>
+  <!-- delete button -->
+   <form action="/caps/<%= cap._id %>?_method=DELETE" method="POST">
+    <button type="submit">Delete <%= cap.name %></button>
+   </form>
+
+  </body>
+</html>

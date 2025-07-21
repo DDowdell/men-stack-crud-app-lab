@@ -1,19 +1,22 @@
-<!-- views/Caps/index.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
+
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <a href="/caps/new">Add New Cap</a>
     <title>Caps Index</title>
   </head>
+
   <body>
     <h1>All Caps</h1>
     <ul>
         <% caps.forEach(cap => { %>
-            <li><%= cap.name %></li>
+            <li> 
+                <a href="/caps/<%= cap._id %>"><%= cap.name %></a>
+            </li>
        <% }) %>
     </ul>
   </body>
+
 </html>
